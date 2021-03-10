@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
-import { node } from "prop-types";
+import { func, node } from "prop-types";
+import { connect } from "react-redux";
+import { getVisitedPlaces } from "actions/user";
 import Header from "components/header";
 
 function Layout(props) {
-  const { children } = props;
+  const { children, onGetVisitedPlaces } = props;
+
+  useEffect(() => {
+    onGetVisitedPlaces()
+  }, []);
 
   return (
     <>
       <Head>
-        <title>Fitzer</title>
+        <title>Guru Hotel</title>
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="viewport"
@@ -29,6 +35,14 @@ function Layout(props) {
 
 Layout.propTypes = {
   children: node.isRequired,
+  onGetVisitedPlaces: func.isRequired
 }
 
-export default Layout;
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+    onGetVisitedPlaces: () => dispatch(getVisitedPlaces()),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Layout);

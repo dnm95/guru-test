@@ -1,14 +1,17 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { shape } from "prop-types";
+import { bool, func, oneOfType, shape } from "prop-types";
 import Link from "next/link";
 import Rating from "react-star-ratings";
 import { parseAddress } from "helpers";
 
 import styles from "styles/Card.module.scss";
 
-const PlaceCard = ({ item }) => (
+const PlaceCard = ({ item, visited, onClick }) => (
   <Link href={`/place/${item.id}`}>
-    <a>
+    <a onClick={() => onClick(item.id)}>
       <div className={styles.card}>
         <div className={styles.image} style={{ backgroundImage: `url(${item.photos[0]})` }} />
         <div className={styles.body}>
@@ -24,14 +27,24 @@ const PlaceCard = ({ item }) => (
             />
           </div>
           <p>Teléfono: {item.display_phone}</p>
+          {visited && (
+            <p>👁️</p>
+          )}
         </div>
       </div>
     </a>
   </Link>
 );
 
+PlaceCard.defaultProps = {
+  onClick() {},
+  visited: false,
+};
+
 PlaceCard.propTypes = {
   item: shape().isRequired,
+  visited: oneOfType([bool, shape()]),
+  onClick: func,
 };
 
 export default PlaceCard;
