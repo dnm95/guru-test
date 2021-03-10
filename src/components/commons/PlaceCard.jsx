@@ -17,7 +17,7 @@ const PlaceCard = ({ item, visited, onClick }) => (
         <div className={styles.body}>
           <h3>{item.name}</h3>
           <Rating count={item.review_count} rating={item.rating} />
-          <p>{parseAddress(item.location)}.</p>
+          <p className={styles.address}>{parseAddress(item.location)}.</p>
           <p>Teléfono: {isEmpty(item.display_phone) ? "no disponible." : item.display_phone}</p>
           {visited && (
             <p className="mb-0 font-weight-bold">👁️ Visto antes</p>

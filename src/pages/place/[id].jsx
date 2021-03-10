@@ -19,12 +19,12 @@ function Place({ places }) {
       <Head>
         <title>{activeBusiness.name || "Place Detail"}</title>
       </Head>
-      {requesting ? (
+      {requesting || isEmpty(activeBusiness) ? (
         <Spinner styles={{ width: "90px", height: "90px" }} />
       ) : (
         <div className="container place-detail-container">
           <div className="row mb-5">
-            <div className="col-sm-6">
+            <div className="col-sm-6 d-flex align-items-center">
               <img className="img-fluid radius" src={activeBusiness.photos[0]} alt={activeBusiness.name} />
             </div>
             <div className="col-sm-6">
