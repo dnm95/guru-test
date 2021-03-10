@@ -31,20 +31,13 @@ const reducer = (state, action) => {
   return rootReducer(state, action)
 }
 
-export const makeStore = (initialState) => {
+export const makeStore = () => {
   const sagaMiddleware = createSagaMiddleware();
   const applyMiddlewares = isDev ? config.dev : config.prod;
-  const store = createStore(reducer, initialState || {}, applyMiddlewares(sagaMiddleware));
+  const store = createStore(reducer, applyMiddlewares(sagaMiddleware));
   store.sagaTask = sagaMiddleware.run(rootSaga);
-
-  if (isDev && module.hot) {
-    module.hot.accept("../reducers", () => {
-      const nextReducer = require("../reducers").default;
-      store.replaceReducer(nextReducer);
-    });
-  }
 
   return store;
 };
 
-export const wrapper = createWrapper(makeStore, { debug: isDev });
+export const wrapper = createWrapper(makeStore, { debug: false });

@@ -1,72 +1,48 @@
 import React from "react";
-import { arrayOf, shape } from "prop-types";
+import { func, shape } from "prop-types";
 import Head from "next/head";
-import Link from "next/link";
-import {
-  Container, Row, Col, Card, CardBody,
-  CardTitle, CardText, CardImg, Button
-} from "reactstrap";
+import SearchPlaces from "components/forms/SearchPlaces";
 import HOC from "hoc";
-import actions from "../actions/test";
-import selectors from "../selectors/test";
+import { getPlaces } from "actions/places";
+import selectors from "selectors/places";
 
 function Home(props) {
-  const { repos } = props;
+  const { places, onSearchPlaces } = props;
+  const onBeforeSearch = (formData) => onSearchPlaces(formData);
 
   return (
     <>
       <Head>
         <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container className="mt-5 mb-5">
-        <Row>
-          {repos && repos.map((repo) => (
-            <Col sm="4" className="mb-4" key={repo.id}>
-              <Card>
-                <CardBody>
-                  <CardImg top src={repo.owner.avatar_url} />
-                  <CardTitle className="mt-2">{repo.name}</CardTitle>
-                  <CardText>{repo.language}</CardText>
-                  <Link href="/repo/[pid]" as={`/repo/${repo.id}`}>
-                    <a>
-                      <Button>Ver repositorio</Button>
-                    </a>
-                  </Link>
-                </CardBody>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-      </Container>
+      <div className="container mt-5 mb-5">
+        <h1>Buscar negocios/comercios:</h1>
+        <SearchPlaces onSubmit={onBeforeSearch} />
+      </div>
     </>
   )
 }
 
 Home.defaultProps = {
-  repos: [],
+  places: {},
 };
 
 Home.propTypes = {
-  repos: arrayOf(shape()),
+  places: shape(),
+  onSearchPlaces: func.isRequired,
 };
 
+
 const mapStateToProps = (state) => ({
-  repos: selectors(state).test.repos,
+  places: selectors(state).places,
 });
 
-/*
-const mapDispatchToProps = dispatch => ({
-  onRequestRepos() {
-    dispatch({
-      type: actions.REQUEST_REPOS,
-      payload: { username: "dnm95" },
-    });
-  },
-});
-*/
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+    onSearchPlaces: (data) => dispatch(getPlaces(data.term, data.location)),
+  };
+}
 
-export default HOC(mapStateToProps)(Home, {
-  type: actions.REQUEST_REPOS,
-  payload: { username: "dnm95" },
-});
+
+export default HOC(mapStateToProps, mapDispatchToProps)(Home);

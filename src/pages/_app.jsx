@@ -1,17 +1,24 @@
 import React from "react";
 import App from "next/app";
+import { ApolloProvider } from "@apollo/client";
 import { wrapper } from "store";
+import { initializeApollo } from "lib/apolloClient";
+import Layout from "components/Layout";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "styles/globals.scss";
 
 class CustomApp extends App {
   render() {
     const { Component, pageProps } = this.props;
+    const apolloClient = initializeApollo(pageProps.initialApolloState);
 
     return (
-      <>
-        <Component {...pageProps} />
-      </>
+      <ApolloProvider client={apolloClient}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ApolloProvider>
     );
   }
 }
