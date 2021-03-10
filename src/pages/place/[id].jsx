@@ -12,47 +12,53 @@ import Reviews from "components/commons/Reviews";
 function Place(props) {
   const { places } = props;
 
-  if (places.requesting) return null;
-
   return (
     <>
       <Head>
         <title>Create Next App</title>
       </Head>
-      <div className="mt-5 mb-5 container">
-        <div className="row mb-5">
-          <div className="col-sm-6">
-            <img className="img-fluid" src={places.activeBusiness.photos[0]} alt={places.activeBusiness.name} />
+      {places.requesting ? (
+        <div className="text-center mt-5 container">
+          <div className="spinner-border text-primary" role="status" style={{ width: "90px", height: "90px" }}>
+            <span className="sr-only">Loading...</span>
           </div>
-          <div className="col-sm-6">
-            <h1 className="mb-1">{places.activeBusiness.name}</h1>
-            <Rating count={places.activeBusiness.review_count} rating={places.activeBusiness.rating} />
-            <p>{parseAddress(places.activeBusiness.location)}</p>
-            <p>Precios: {places.activeBusiness.price || "no disponibles"}</p>
-            <p>
-              Teléfono:
-              {" "}
-              {isEmpty(places.activeBusiness.phone) ? "no disponible" : (
-                <a href={`tel:${places.activeBusiness.phone}`}>{places.activeBusiness.display_phone}</a>
+        </div>
+      ) : (
+        <div className="mt-5 mb-5 container">
+          <div className="row mb-5">
+            <div className="col-sm-6">
+              <img className="img-fluid" src={places.activeBusiness.photos[0]} alt={places.activeBusiness.name} />
+            </div>
+            <div className="col-sm-6">
+              <h1 className="mb-1">{places.activeBusiness.name}</h1>
+              <Rating count={places.activeBusiness.review_count} rating={places.activeBusiness.rating} />
+              <p>{parseAddress(places.activeBusiness.location)}</p>
+              <p>Precios: {places.activeBusiness.price || "no disponibles"}</p>
+              <p>
+                Teléfono:
+                {" "}
+                {isEmpty(places.activeBusiness.phone) ? "no disponible" : (
+                  <a href={`tel:${places.activeBusiness.phone}`}>{places.activeBusiness.display_phone}</a>
+                )}
+              </p>
+              <p>Cerrado permanentemente: {places.activeBusiness.is_closed ? "si" : "no"}</p>
+              <a href={places.activeBusiness.url} target="_blank" rel="noreferrer">
+                <button className="btn secondary block" type="button">
+                  Visitar sitio web
+                </button>
+              </a>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              {places.activeBusiness.reviews.length > 0 && (
+                <h2 className="mb-1">Reseñas:</h2>
               )}
-            </p>
-            <p>Cerrado permanentemente: {places.activeBusiness.is_closed ? "si" : "no"}</p>
-            <a href={places.activeBusiness.url} target="_blank" rel="noreferrer">
-              <button className="btn secondary block" type="button">
-                Visitar sitio web
-              </button>
-            </a>
+              <Reviews reviews={places.activeBusiness.reviews} />
+            </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col-xs-12">
-            {places.activeBusiness.reviews.length > 0 && (
-              <h2 className="mb-1">Reseñas:</h2>
-            )}
-            <Reviews reviews={places.activeBusiness.reviews} />
-          </div>
-        </div>
-      </div>
+      )}
     </>
   )
 }

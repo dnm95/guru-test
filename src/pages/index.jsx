@@ -16,13 +16,25 @@ function Home(props) {
     <div className="container mt-5 mb-5">
       <h1>Buscar negocios/comercios:</h1>
       <SearchPlaces onSubmit={onBeforeSearch} />
-      <div className="row mt-5">
-        {places.business && places.business.map((b) => (
-          <div key={b.id} className="col-xs-12 col-sm-4 mb-5">
-            <Card item={b} onClick={onSetVisitedPlace} visited={visitedPlaces.find((visit) => visit === b.id)} />
+      {places.requesting ? (
+        <div className="text-center mt-5">
+          <div className="spinner-border text-primary" role="status" style={{ width: "80px", height: "80px" }}>
+            <span className="sr-only">Loading...</span>
           </div>
-        ))}
-      </div>
+        </div>
+      ) : (
+        <div className="row mt-5">
+          {places.business && places.business.map((b) => (
+            <div key={b.id} className="col-xs-12 col-sm-4 mb-5">
+              <Card
+                item={b}
+                onClick={onSetVisitedPlace}
+                visited={visitedPlaces.find((visit) => visit === b.id)}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

@@ -7,18 +7,13 @@ function Header() {
 
   return (
     <nav className={styles.header}>
-      <div className="container">
+      <div className="container text-center">
         <Link href="/">
           <a>
             <img
               src="https://guruhotel.com/wp-content/themes/gh-apollo-1/assets/images/logo-original.svg"
               alt="logo"
             />
-          </a>
-        </Link>
-        <Link href="/">
-          <a className="ml-4">
-            Búsqueda
           </a>
         </Link>
       </div>

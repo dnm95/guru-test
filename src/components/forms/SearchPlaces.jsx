@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { func } from "prop-types";
+import { bool, func } from "prop-types";
+import isEmpty from "lodash/isEmpty";
 
 const initialState = {
   term: "",
@@ -7,7 +8,7 @@ const initialState = {
 };
 
 function SearchPlaces(props) {
-  const { onSubmit } = props;
+  const { requesting, onSubmit } = props;
   const [state, setState] = useState(initialState);
 
   const onChange = (e) => setState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
@@ -38,15 +39,26 @@ function SearchPlaces(props) {
           />
         </div>
         <div className="col-sm-2">
-          <button className="btn block" type="submit">Buscar</button>
+          <button
+            className="btn block"
+            type="submit"
+            disabled={requesting || isEmpty(state.term) || isEmpty(state.location)}
+          >
+            Buscar
+          </button>
         </div>
       </div>
     </form>
   )
 }
 
+SearchPlaces.defaultProps = {
+  requesting: false,
+}
+
 SearchPlaces.propTypes = {
   onSubmit: func.isRequired,
+  requesting: bool,
 };
 
 export default SearchPlaces;
