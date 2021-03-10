@@ -1,17 +1,19 @@
 import {
   GET_PLACES, GET_PLACES_SUCCESS,
-  GET_PLACES_FAILED
+  GET_PLACES_FAILED, GET_PLACE,
+  GET_PLACE_SUCCESS, GET_PLACE_FAILED
 } from "constants/places";
 
 const initialState = {
   requesting: false,
   business: [],
-  repo: {},
+  activeBusiness: {},
 };
 
 const placesReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case GET_PLACES: {
+    case GET_PLACES:
+    case GET_PLACE: {
       return {
         ...state,
         requesting: true,
@@ -28,7 +30,18 @@ const placesReducer = (state = initialState, { type, payload }) => {
       };
     }
 
-    case GET_PLACES_FAILED: {
+    case GET_PLACE_SUCCESS: {
+      const { activeBusiness } = payload;
+
+      return {
+        ...state,
+        activeBusiness,
+        requesting: false,
+      };
+    }
+
+    case GET_PLACES_FAILED:
+    case GET_PLACE_FAILED: {
       return {
         ...initialState
       };

@@ -27,6 +27,7 @@ export const GET_PLACE = gql`
   query getPlace($id: String!) {
     business(id: $id) {
       id
+      is_closed
       name
       rating
       review_count
@@ -35,6 +36,7 @@ export const GET_PLACE = gql`
       display_phone
       photos
       price
+      url
       location {
         address1
         city
@@ -48,6 +50,10 @@ export const GET_PLACE = gql`
       reviews {
         id
         text
+        rating
+        user {
+          name
+        }
       }
     }
   }

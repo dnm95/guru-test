@@ -1,38 +1,74 @@
 import React from "react";
 import Head from "next/head";
-import { arrayOf, shape } from "prop-types";
+import { shape } from "prop-types";
 import HOC from "hoc";
-import actions from "constants/places";
+import isEmpty from "lodash/isEmpty";
+import { GET_PLACE } from "constants/places";
 import selectors from "selectors/places";
+import { parseAddress } from "helpers";
+import Rating from "components/commons/Rating";
+import Reviews from "components/commons/Reviews";
 
-function Repo(props) {
-  const { query } = props.router;
+function Place(props) {
+  const { places } = props;
+
+  if (places.requesting) return null;
+
   return (
     <>
       <Head>
-          <title>Create Next App</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-      <div className="mt-5 mb-5 container-fluid">
-        <h2>Repo: {query.id}</h2>
+        <title>Create Next App</title>
+      </Head>
+      <div className="mt-5 mb-5 container">
+        <div className="row mb-5">
+          <div className="col-sm-6">
+            <img className="img-fluid" src={places.activeBusiness.photos[0]} alt={places.activeBusiness.name} />
+          </div>
+          <div className="col-sm-6">
+            <h1 className="mb-1">{places.activeBusiness.name}</h1>
+            <Rating count={places.activeBusiness.review_count} rating={places.activeBusiness.rating} />
+            <p>{parseAddress(places.activeBusiness.location)}</p>
+            <p>Precios: {places.activeBusiness.price || "no disponibles"}</p>
+            <p>
+              Teléfono:
+              {" "}
+              {isEmpty(places.activeBusiness.phone) ? "no disponible" : (
+                <a href={`tel:${places.activeBusiness.phone}`}>{places.activeBusiness.display_phone}</a>
+              )}
+            </p>
+            <p>Cerrado permanentemente: {places.activeBusiness.is_closed ? "si" : "no"}</p>
+            <a href={places.activeBusiness.url} target="_blank" rel="noreferrer">
+              <button className="btn secondary block" type="button">
+                Visitar sitio web
+              </button>
+            </a>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-xs-12">
+            {places.activeBusiness.reviews.length > 0 && (
+              <h2 className="mb-1">Reseñas:</h2>
+            )}
+            <Reviews reviews={places.activeBusiness.reviews} />
+          </div>
+        </div>
       </div>
     </>
   )
 }
 
-Repo.defaultProps = {
-  repos: [],
+Place.defaultProps = {
+  places: {},
 };
 
-Repo.propTypes = {
-  repos: arrayOf(shape()),
+Place.propTypes = {
+  places: shape(),
 };
 
 const mapStateToProps = (state) => ({
-  repos: selectors(state).places.repos,
+  places: selectors(state).places,
 });
 
-export default HOC(mapStateToProps)(Repo, {
-  type: actions.REQUEST_REPOS,
-  payload: { username: "dnm95" },
+export default HOC(mapStateToProps)(Place, {
+  type: GET_PLACE,
 });
