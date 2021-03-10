@@ -4,6 +4,7 @@ import { func, node } from "prop-types";
 import { connect } from "react-redux";
 import { getVisitedPlaces } from "actions/user";
 import Header from "components/header";
+import Footer from "components/footer";
 
 function Layout(props) {
   const { children, onGetVisitedPlaces } = props;
@@ -29,6 +30,7 @@ function Layout(props) {
       <div className="page-content">
         {children}
       </div>
+      <Footer />
     </>
   )
 }

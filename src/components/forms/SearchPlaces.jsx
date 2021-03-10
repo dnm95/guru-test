@@ -24,7 +24,8 @@ function SearchPlaces(props) {
           <input
           type="text"
           name="term"
-          placeholder="Comida, restaurantes..."
+          placeholder="Comida, restaurantes, plomero, dr,..."
+          className="responsive-input"
           value={state.term}
           onChange={onChange}
         />
@@ -33,19 +34,29 @@ function SearchPlaces(props) {
           <input
             type="text"
             name="location"
-            placeholder="Ubicación"
+            placeholder="Ubicación, CDMX, Cancún, México"
+            className="responsive-input"
             value={state.location}
             onChange={onChange}
           />
         </div>
         <div className="col-sm-2">
           <button
-            className="btn block"
+            className="btn block for-input"
             type="submit"
             disabled={requesting || isEmpty(state.term) || isEmpty(state.location)}
           >
             Buscar
           </button>
+        </div>
+        <div className="col-sm-12">
+          <p className="text-muted small mt-2">
+            Powered by
+            {" "}
+            <a className="text-muted" href="https://www.yelp.com/developers/graphql/query/search" target="_blank" rel="noreferrer">
+              Yelp API
+            </a>
+          </p>
         </div>
       </div>
     </form>

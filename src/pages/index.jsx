@@ -7,6 +7,7 @@ import selectors from "selectors/places";
 import userSelectors from "selectors/user";
 import SearchPlaces from "components/forms/SearchPlaces";
 import Card from "components/commons/PlaceCard";
+import Spinner from "components/commons/Spinner";
 
 function Home(props) {
   const { places, visitedPlaces, onSearchPlaces, onSetVisitedPlace } = props;
@@ -14,14 +15,17 @@ function Home(props) {
 
   return (
     <div className="container mt-5 mb-5">
-      <h1>Buscar negocios/comercios:</h1>
-      <SearchPlaces onSubmit={onBeforeSearch} />
+      <h1>Encuentra los mejores negocios/comercios/restaurantes/servicios:</h1>
+      <SearchPlaces onSubmit={onBeforeSearch} requesting={places.requesting} />
+      {!places.business.length && !places.requesting && (
+        <img
+          src="https://cdn.pixabay.com/photo/2019/03/25/20/44/lubeck-4081316_1280.jpg"
+          className="img-fluid"
+          alt="placeholder"
+        />
+      )}
       {places.requesting ? (
-        <div className="text-center mt-5">
-          <div className="spinner-border text-primary" role="status" style={{ width: "80px", height: "80px" }}>
-            <span className="sr-only">Loading...</span>
-          </div>
-        </div>
+        <Spinner styles={{ width: "80px", height: "80px" }} />
       ) : (
         <div className="row mt-5">
           {places.business && places.business.map((b) => (

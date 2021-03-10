@@ -8,6 +8,7 @@ import selectors from "selectors/places";
 import { parseAddress } from "helpers";
 import Rating from "components/commons/Rating";
 import Reviews from "components/commons/Reviews";
+import Spinner from "components/commons/Spinner";
 
 function Place(props) {
   const { places } = props;
@@ -18,11 +19,7 @@ function Place(props) {
         <title>Create Next App</title>
       </Head>
       {places.requesting ? (
-        <div className="text-center mt-5 container">
-          <div className="spinner-border text-primary" role="status" style={{ width: "90px", height: "90px" }}>
-            <span className="sr-only">Loading...</span>
-          </div>
-        </div>
+        <Spinner styles={{ width: "90px", height: "90px" }} />
       ) : (
         <div className="mt-5 mb-5 container">
           <div className="row mb-5">
@@ -52,7 +49,7 @@ function Place(props) {
           <div className="row">
             <div className="col-xs-12">
               {places.activeBusiness.reviews.length > 0 && (
-                <h2 className="mb-1">Reseñas:</h2>
+                <h2 className="mb-2">Reseñas</h2>
               )}
               <Reviews reviews={places.activeBusiness.reviews} />
             </div>

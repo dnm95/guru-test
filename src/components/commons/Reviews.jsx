@@ -6,16 +6,16 @@ import styles from "styles/Reviews.module.scss";
 const Reviews = ({ reviews }) => (
   <div className={styles.reviewsContainer}>
     {reviews && reviews.map((review) => (
-      <div key={review.id}>
-        <p className={styles.user}>
-          {review.user.name}
+      <div className={styles.reviewContainer} key={review.id}>
+        <div className={styles.userContainer}>
+          <span>{review.user.name}</span>
           <RatingStars
             rating={review.rating}
             starDimension="18px"
             starSpacing="0px"
             starRatedColor="#ffc629"
           />
-        </p>
+        </div>
         <p>{review.text}</p>
       </div>
     ))}
