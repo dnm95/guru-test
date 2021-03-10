@@ -12,7 +12,7 @@ function* watchGetPlaces(action) {
   try {
     const resource = `${BASE_URL}search-places?term=${term}&location=${location}`;
     const places = yield call(axios.get, resource);
-    return yield put(getPlacesSuccess(places.business));
+    return yield put(getPlacesSuccess(places.data.business));
   } catch (err) {
     return yield put(getPlacesFailed());
   }
