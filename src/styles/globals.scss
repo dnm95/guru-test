@@ -27,7 +27,7 @@ h3 {
   }
 }
 
-h1, h2, h3 {
+h1 {
   font-weight: 600;
   color: #000;
 }
@@ -120,6 +120,14 @@ footer {
   p {
     margin-bottom: 0px;
   }
+  a {
+    color: #FFF;
+    text-decoration: underline;
+    &:hover, &:active {
+      color: #FFF;
+      text-decoration: underline;
+    }
+  }
 }
 
 .page-content {
@@ -130,4 +138,14 @@ footer {
 /* GLOBAL HELPERS */
 .pointer {
   cursor: pointer;
+}
+
+.radius {
+  border-radius: 4px;
+  border: 1px solid #e1e1e3
+}
+
+.center-count {
+  margin-top: 4px;
+  margin-left: 5px;
 }

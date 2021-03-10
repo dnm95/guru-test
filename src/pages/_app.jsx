@@ -7,6 +7,7 @@ import Layout from "components/Layout";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "styles/globals.scss";
+import "styles/place-detail.scss";
 
 class CustomApp extends App {
   render() {

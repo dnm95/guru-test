@@ -44,8 +44,12 @@ export const GET_PLACE = gql`
         country
       }
       hours {
-        hours_type
         is_open_now
+        open {
+          end
+          start
+          day
+        }
       }
       reviews {
         id

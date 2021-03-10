@@ -2,9 +2,13 @@ import React, { useEffect } from "react";
 import Head from "next/head";
 import { func, node } from "prop-types";
 import { connect } from "react-redux";
+import dayjs from "dayjs";
+import * as locale from "dayjs/locale/es";
 import { getVisitedPlaces } from "actions/user";
 import Header from "components/header";
 import Footer from "components/footer";
+
+dayjs.locale(locale);
 
 function Layout(props) {
   const { children, onGetVisitedPlaces } = props;

@@ -10,7 +10,7 @@ const Rating = ({ rating, count }) => (
       starSpacing="0px"
       starRatedColor="#ffc629"
     />
-    <span>{`${rating.toFixed(1)} basado en ${count} reseñas.`}</span>
+    <span className="center-count">{`${rating.toFixed(1)} basado en ${count} reseñas.`}</span>
   </div>
 );
 

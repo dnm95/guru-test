@@ -9,37 +9,40 @@ import { parseAddress } from "helpers";
 import Rating from "components/commons/Rating";
 import Reviews from "components/commons/Reviews";
 import Spinner from "components/commons/Spinner";
+import Schedules from "components/commons/Schedules";
 
-function Place(props) {
-  const { places } = props;
+function Place({ places }) {
+  const { activeBusiness, requesting } = places;
 
   return (
     <>
       <Head>
-        <title>Create Next App</title>
+        <title>{activeBusiness.name || "Place Detail"}</title>
       </Head>
-      {places.requesting ? (
+      {requesting ? (
         <Spinner styles={{ width: "90px", height: "90px" }} />
       ) : (
-        <div className="mt-5 mb-5 container">
+        <div className="container place-detail-container">
           <div className="row mb-5">
             <div className="col-sm-6">
-              <img className="img-fluid" src={places.activeBusiness.photos[0]} alt={places.activeBusiness.name} />
+              <img className="img-fluid radius" src={activeBusiness.photos[0]} alt={activeBusiness.name} />
             </div>
             <div className="col-sm-6">
-              <h1 className="mb-1">{places.activeBusiness.name}</h1>
-              <Rating count={places.activeBusiness.review_count} rating={places.activeBusiness.rating} />
-              <p>{parseAddress(places.activeBusiness.location)}</p>
+              <h1>{activeBusiness.name}</h1>
+              <Rating count={activeBusiness.review_count} rating={activeBusiness.rating} />
+              <p className="address">Dirección: {parseAddress(activeBusiness.location)}</p>
               <p>Precios: {places.activeBusiness.price || "no disponibles"}</p>
               <p>
                 Teléfono:
                 {" "}
-                {isEmpty(places.activeBusiness.phone) ? "no disponible" : (
-                  <a href={`tel:${places.activeBusiness.phone}`}>{places.activeBusiness.display_phone}</a>
+                {isEmpty(activeBusiness.phone) ? "no disponible" : (
+                  <a href={`tel:${activeBusiness.phone}`}>{activeBusiness.display_phone}</a>
                 )}
               </p>
-              <p>Cerrado permanentemente: {places.activeBusiness.is_closed ? "si" : "no"}</p>
-              <a href={places.activeBusiness.url} target="_blank" rel="noreferrer">
+              <p>Cerrado permanentemente: {activeBusiness.is_closed ? "si" : "no"}</p>
+              <p>Abierto ahora: {activeBusiness.hours[0] && activeBusiness.hours[0].is_open_now ? "si" : "no"}</p>
+              <Schedules schedules={activeBusiness.hours[0].open || []} />
+              <a href={activeBusiness.url} target="_blank" rel="noreferrer">
                 <button className="btn secondary block" type="button">
                   Visitar sitio web
                 </button>
@@ -47,7 +50,7 @@ function Place(props) {
             </div>
           </div>
           <div className="row">
-            <div className="col-xs-12">
+            <div className="col-sm-12">
               {places.activeBusiness.reviews.length > 0 && (
                 <h2 className="mb-2">Reseñas</h2>
               )}

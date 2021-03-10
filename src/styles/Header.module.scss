@@ -4,6 +4,9 @@
   display: flex;
   align-items: center;
   box-shadow: 0 0 22px #ebf0f5;
+  @media screen and (max-width: 768px) {
+    padding: 10px;
+  }
   img {
     height: 50px;
   }
