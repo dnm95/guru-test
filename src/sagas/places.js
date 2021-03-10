@@ -5,7 +5,7 @@ import axios from "axios";
 import { GET_PLACES } from "constants/places";
 import { getPlacesSuccess, getPlacesFailed } from "actions/places";
 
-const BASE_URL = "http://localhost:3000/api/";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URI;
 
 function* watchGetPlaces(action) {
   const { term, location } = action.payload;
