@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Head from "next/head";
 import { func, node } from "prop-types";
 import { connect } from "react-redux";
-import { getVisitedPlaces } from "actions/user";
+import { getVisitedPlaces } from "store/actions/user";
 import Header from "components/header";
 import Footer from "components/footer";
 

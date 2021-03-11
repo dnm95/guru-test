@@ -5,7 +5,6 @@ import React from "react";
 import { bool, func, oneOfType, shape } from "prop-types";
 import Link from "next/link";
 import isEmpty from "lodash/isEmpty";
-import { parseAddress } from "helpers";
 import styles from "styles/Card.module.scss";
 import Rating from "./Rating";
 
@@ -17,7 +16,7 @@ const PlaceCard = ({ item, visited, onClick }) => (
         <div className={styles.body}>
           <h3>{item.name}</h3>
           <Rating count={item.review_count} rating={item.rating} />
-          <p className={styles.address}>{parseAddress(item.location)}.</p>
+          <p className={styles.address}>{item.location.formatted_address}.</p>
           <p>Teléfono: {isEmpty(item.display_phone) ? "no disponible." : item.display_phone}</p>
           {visited && (
             <p className="mb-0 font-weight-bold">👁️ Visto antes</p>

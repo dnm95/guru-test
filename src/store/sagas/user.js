@@ -1,11 +1,11 @@
 import { takeEvery, call, put, all, select } from "redux-saga/effects";
 import { getKey, setKey, removeKey } from "lib/storage";
-import { GET_VISITED_PLACES, SET_VISITED_PLACE } from "constants/user";
+import { GET_VISITED_PLACES, SET_VISITED_PLACE } from "store/constants/user";
 import { 
   getVisitedPlacesSuccess, getVisitedPlacesFailed,
   setVisitedPlaceSuccess, setVisitedPlaceFailed
-} from "actions/user";
-import { userSelector } from "selectors/user";
+} from "store/actions/user";
+import { userSelector } from "store/selectors/user";
 
 const KEY_CUSTOMER = "__CUSTOMER_PLACES__";
 

@@ -2,7 +2,7 @@ import {
   GET_VISITED_PLACES, GET_VISITED_PLACES_SUCCESS,
   GET_VISITED_PLACES_FAILED, SET_VISITED_PLACE,
   SET_VISITED_PLACE_SUCCESS, SET_VISITED_PLACE_FAILED
-} from "constants/user";
+} from "store/constants/user";
 
 export function getVisitedPlaces() {
   return {

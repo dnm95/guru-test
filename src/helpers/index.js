@@ -1,7 +1,3 @@
-export function parseAddress(address) {
-  return `${address.address1}, ${address.city}, ${address.state}, ${address.country}`;
-}
-
 export function getDay(day) {
   let formattedDay = "";
   switch (day) {
@@ -33,4 +29,4 @@ export function getDay(day) {
   return formattedDay;
 }
 
-export default parseAddress;
+export default getDay;

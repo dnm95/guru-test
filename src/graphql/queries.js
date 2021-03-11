@@ -13,10 +13,7 @@ export const SEARCH_PLACES = gql`
         display_phone
         photos
         location {
-          address1
-          city
-          state
-          country
+          formatted_address
         }
       }
     }
@@ -37,11 +34,12 @@ export const GET_PLACE = gql`
       photos
       price
       url
+      categories {
+        title
+        alias
+      }
       location {
-        address1
-        city
-        state
-        country
+        formatted_address
       }
       hours {
         is_open_now

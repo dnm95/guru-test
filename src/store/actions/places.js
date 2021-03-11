@@ -2,7 +2,7 @@ import {
   GET_PLACES, GET_PLACES_SUCCESS,
   GET_PLACES_FAILED, GET_PLACE,
   GET_PLACE_SUCCESS, GET_PLACE_FAILED
-} from "constants/places";
+} from "store/constants/places";
 
 export function getPlaces(term, location) {
   return {

@@ -34,11 +34,6 @@ const HOC = (mapStateToProps, mapDispatchToProps) => (BaseComponent, actions) =>
       if (isServer) {
         const rootTask = store.sagaTask;
 
-        /*
-        store.dispatch(injectGlobals(isMobile, null));
-        store.dispatch(getCategories());
-        */
-
         store.dispatch(dispatch);
         store.dispatch(END);
         await rootTask.toPromise().then();

@@ -4,9 +4,8 @@ import Link from "next/link";
 import { shape } from "prop-types";
 import HOC from "hoc";
 import isEmpty from "lodash/isEmpty";
-import { GET_PLACE } from "constants/places";
-import selectors from "selectors/places";
-import { parseAddress } from "helpers";
+import { GET_PLACE } from "store/constants/places";
+import selectors from "store/selectors/places";
 import Rating from "components/commons/Rating";
 import Reviews from "components/commons/Reviews";
 import Spinner from "components/commons/Spinner";
@@ -31,7 +30,7 @@ function Place({ places }) {
             <div className="col-sm-6 service-info">
               <h1>{activeBusiness.name}</h1>
               <Rating count={activeBusiness.review_count} rating={activeBusiness.rating} />
-              <p className="address">Dirección: {parseAddress(activeBusiness.location)}</p>
+              <p className="address">Dirección: {activeBusiness.location.formatted_address}</p>
               <p>Precios: {places.activeBusiness.price || "no disponibles"}</p>
               <p>
                 Teléfono:
@@ -40,6 +39,13 @@ function Place({ places }) {
                   <a href={`tel:${activeBusiness.phone}`}>{activeBusiness.display_phone}</a>
                 )}
               </p>
+              {activeBusiness.categories.length > 0 && (
+                <p>
+                  Categorías:
+                  {" "}
+                  {activeBusiness.categories.map((cat, index) => `${cat.title}${index === activeBusiness.categories.length - 1 ? "." : ", "}`)}
+                </p>
+              )}
               <p>Cerrado permanentemente: {activeBusiness.is_closed ? "si" : "no"}.</p>
               <p>Abierto ahora: {activeBusiness.hours[0] && activeBusiness.hours[0].is_open_now ? "si" : "no"}.</p>
               <Schedules schedules={activeBusiness.hours[0].open || []} />

@@ -2,8 +2,8 @@ import {
   takeEvery, put, call,
 } from "redux-saga/effects";
 import axios from "axios";
-import { GET_PLACES, GET_PLACE } from "constants/places";
-import { getPlacesSuccess, getPlacesFailed, getPlaceSuccess, getPlaceFailed } from "actions/places";
+import { GET_PLACES, GET_PLACE } from "store/constants/places";
+import { getPlacesSuccess, getPlacesFailed, getPlaceSuccess, getPlaceFailed } from "store/actions/places";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URI;
 

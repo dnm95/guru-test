@@ -1,10 +1,10 @@
 import React from "react";
 import { arrayOf, func, shape } from "prop-types";
 import HOC from "hoc";
-import { getPlaces } from "actions/places";
-import { setVisitedPlace } from "actions/user"
-import selectors from "selectors/places";
-import userSelectors from "selectors/user";
+import { getPlaces } from "store/actions/places";
+import { setVisitedPlace } from "store/actions/user"
+import selectors from "store/selectors/places";
+import userSelectors from "store/selectors/user";
 import SearchPlaces from "components/forms/SearchPlaces";
 import Card from "components/commons/PlaceCard";
 import Spinner from "components/commons/Spinner";
