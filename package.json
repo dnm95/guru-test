@@ -21,7 +21,6 @@
     "axios": "^0.21.1",
     "babel-eslint": "^10.1.0",
     "bootstrap": "^4.6.0",
-    "dayjs": "^1.10.4",
     "graphql": "^15.5.0",
     "lodash": "^4.17.21",
     "next": "10.0.8",

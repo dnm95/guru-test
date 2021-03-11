@@ -26,7 +26,7 @@ function Home(props) {
       {!places.business.length && !places.requesting && (
         <img
           src="https://cdn.pixabay.com/photo/2019/03/25/20/44/lubeck-4081316_1280.jpg"
-          className="img-fluid"
+          className="img-fluid radius"
           alt="placeholder"
         />
       )}

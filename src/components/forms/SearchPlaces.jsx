@@ -42,7 +42,7 @@ function SearchPlaces(props) {
         </div>
         <div className="col-sm-2">
           <button
-            className="btn block for-input"
+            className="btn primary block for-input"
             type="submit"
             disabled={requesting || isEmpty(state.term) || isEmpty(state.location)}
           >

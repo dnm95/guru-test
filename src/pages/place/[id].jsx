@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import Link from "next/link";
 import { shape } from "prop-types";
 import HOC from "hoc";
 import isEmpty from "lodash/isEmpty";
@@ -25,9 +26,9 @@ function Place({ places }) {
         <div className="container place-detail-container">
           <div className="row mb-5">
             <div className="col-sm-6 d-flex align-items-center">
-              <img className="img-fluid radius" src={activeBusiness.photos[0]} alt={activeBusiness.name} />
+              <img className="img-fluid shadow" src={activeBusiness.photos[0]} alt={activeBusiness.name} />
             </div>
-            <div className="col-sm-6">
+            <div className="col-sm-6 service-info">
               <h1>{activeBusiness.name}</h1>
               <Rating count={activeBusiness.review_count} rating={activeBusiness.rating} />
               <p className="address">Dirección: {parseAddress(activeBusiness.location)}</p>
@@ -39,14 +40,21 @@ function Place({ places }) {
                   <a href={`tel:${activeBusiness.phone}`}>{activeBusiness.display_phone}</a>
                 )}
               </p>
-              <p>Cerrado permanentemente: {activeBusiness.is_closed ? "si" : "no"}</p>
-              <p>Abierto ahora: {activeBusiness.hours[0] && activeBusiness.hours[0].is_open_now ? "si" : "no"}</p>
+              <p>Cerrado permanentemente: {activeBusiness.is_closed ? "si" : "no"}.</p>
+              <p>Abierto ahora: {activeBusiness.hours[0] && activeBusiness.hours[0].is_open_now ? "si" : "no"}.</p>
               <Schedules schedules={activeBusiness.hours[0].open || []} />
               <a href={activeBusiness.url} target="_blank" rel="noreferrer">
-                <button className="btn secondary block" type="button">
+                <button className="btn primary" type="button">
                   Visitar sitio web
                 </button>
               </a>
+              <Link href="/">
+                <a>
+                  <button className="btn cancel ml-3" type="button">
+                    Regresar
+                  </button>
+                </a>
+              </Link>
             </div>
           </div>
           <div className="row">
