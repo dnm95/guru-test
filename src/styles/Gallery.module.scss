@@ -1,0 +1,29 @@
+.thumbnailContainer {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desktopImage {
+  height: 470px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #f2f2f2;
+}
+
+.thumbnail {
+  height: 50px;
+  width: 60px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 4px;
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+.active {
+  border: 1px solid #000;
+}

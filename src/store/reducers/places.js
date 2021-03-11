@@ -1,7 +1,8 @@
 import {
   GET_PLACES, GET_PLACES_SUCCESS,
   GET_PLACES_FAILED, GET_PLACE,
-  GET_PLACE_SUCCESS, GET_PLACE_FAILED
+  GET_PLACE_SUCCESS, GET_PLACE_FAILED,
+  SET_PHOTO,
 } from "store/constants/places";
 
 const initialState = {
@@ -38,7 +39,10 @@ const placesReducer = (state = initialState, { type, payload }) => {
 
       return {
         ...state,
-        activeBusiness,
+        activeBusiness: {
+          ...activeBusiness,
+          photo: activeBusiness.photos[0],
+        },
         error: "",
         requesting: false,
       };
@@ -51,6 +55,18 @@ const placesReducer = (state = initialState, { type, payload }) => {
       return {
         ...initialState,
         error
+      };
+    }
+
+    case SET_PHOTO: {
+      const { photo } = payload;
+
+      return {
+        ...state,
+        activeBusiness: {
+          ...state.activeBusiness,
+          photo,
+        },
       };
     }
 

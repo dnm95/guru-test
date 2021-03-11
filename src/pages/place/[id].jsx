@@ -1,17 +1,19 @@
 import React from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { shape } from "prop-types";
+import { func, shape } from "prop-types";
 import HOC from "hoc";
 import isEmpty from "lodash/isEmpty";
 import { GET_PLACE } from "store/constants/places";
+import { setPhoto } from "store/actions/places";
 import selectors from "store/selectors/places";
 import Rating from "components/commons/Rating";
 import Reviews from "components/commons/Reviews";
 import Spinner from "components/commons/Spinner";
 import Schedules from "components/commons/Schedules";
+import Gallery from "components/commons/Gallery";
 
-function Place({ places }) {
+function Place({ places, onSetPhoto }) {
   const { activeBusiness, requesting } = places;
 
   return (
@@ -25,13 +27,12 @@ function Place({ places }) {
         <div className="container place-detail-container">
           <div className="row mb-5">
             <div className="col-sm-6 d-flex align-items-center">
-              <img className="img-fluid shadow" src={activeBusiness.photos[0]} alt={activeBusiness.name} />
+              <Gallery photos={activeBusiness.photos} activePhoto={activeBusiness.photo} onSelectPhoto={onSetPhoto} />
             </div>
             <div className="col-sm-6 service-info">
               <h1>{activeBusiness.name}</h1>
               <Rating count={activeBusiness.review_count} rating={activeBusiness.rating} />
               <p className="address">Dirección: {activeBusiness.location.formatted_address}</p>
-              <p>Precios: {places.activeBusiness.price || "no disponibles"}</p>
               <p>
                 Teléfono:
                 {" "}
@@ -39,6 +40,7 @@ function Place({ places }) {
                   <a href={`tel:${activeBusiness.phone}`}>{activeBusiness.display_phone}</a>
                 )}
               </p>
+              <p>Precios: {places.activeBusiness.price || "no disponibles"}</p>
               {activeBusiness.categories.length > 0 && (
                 <p>
                   Categorías:
@@ -47,20 +49,26 @@ function Place({ places }) {
                 </p>
               )}
               <p>Cerrado permanentemente: {activeBusiness.is_closed ? "si" : "no"}.</p>
-              <p>Abierto ahora: {activeBusiness.hours[0] && activeBusiness.hours[0].is_open_now ? "si" : "no"}.</p>
-              <Schedules schedules={activeBusiness.hours[0].open || []} />
-              <a href={activeBusiness.url} target="_blank" rel="noreferrer">
-                <button className="btn primary" type="button">
-                  Visitar sitio web
-                </button>
-              </a>
-              <Link href="/">
-                <a>
-                  <button className="btn cancel ml-3" type="button">
-                    Regresar
+              {activeBusiness.hours[0] && (
+                <>
+                  <p>Abierto ahora: {activeBusiness.hours[0] && activeBusiness.hours[0].is_open_now ? "si" : "no"}.</p>
+                  <Schedules schedules={activeBusiness.hours[0].open || []} />
+                </>
+              )}
+              <div className="ctas">
+                <a href={activeBusiness.url} target="_blank" rel="noreferrer">
+                  <button className="btn primary" type="button">
+                    Visitar sitio web
                   </button>
                 </a>
-              </Link>
+                <Link href="/">
+                  <a>
+                    <button className="btn cancel ml-3" type="button">
+                      Regresar
+                    </button>
+                  </a>
+                </Link>
+              </div>
             </div>
           </div>
           <div className="row">
@@ -83,12 +91,20 @@ Place.defaultProps = {
 
 Place.propTypes = {
   places: shape(),
+  onSetPhoto: func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   places: selectors(state).places,
 });
 
-export default HOC(mapStateToProps)(Place, {
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+    onSetPhoto: (photo) => dispatch(setPhoto(photo)),
+  };
+}
+
+export default HOC(mapStateToProps, mapDispatchToProps)(Place, {
   type: GET_PLACE,
 });

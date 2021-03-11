@@ -34,7 +34,7 @@ function SearchPlaces(props) {
           <input
             type="text"
             name="location"
-            placeholder="Ubicación, CDMX, Cancún, México"
+            placeholder="Ubicación, CDMX, Cancún, NY..."
             className="responsive-input"
             value={state.location}
             onChange={onChange}

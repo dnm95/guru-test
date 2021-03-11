@@ -16,7 +16,7 @@ function Layout(props) {
   return (
     <>
       <Head>
-        <title>Guru Hotel</title>
+        <title>Encuentra los mejores comercios / restaurantes / servicios</title>
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="viewport"

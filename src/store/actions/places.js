@@ -1,7 +1,8 @@
 import {
   GET_PLACES, GET_PLACES_SUCCESS,
   GET_PLACES_FAILED, GET_PLACE,
-  GET_PLACE_SUCCESS, GET_PLACE_FAILED
+  GET_PLACE_SUCCESS, GET_PLACE_FAILED,
+  SET_PHOTO,
 } from "store/constants/places";
 
 export function getPlaces(term, location) {
@@ -43,6 +44,13 @@ export function getPlaceFailed(error) {
   return {
     type: GET_PLACE_FAILED,
     payload: { error },
+  };
+}
+
+export function setPhoto(photo) {
+  return {
+    type: SET_PHOTO,
+    payload: { photo },
   };
 }
 
