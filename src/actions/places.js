@@ -18,9 +18,10 @@ export function getPlacesSuccess(business) {
   };
 }
 
-export function getPlacesFailed() {
+export function getPlacesFailed(error) {
   return {
     type: GET_PLACES_FAILED,
+    payload: { error },
   };
 }
 
@@ -38,9 +39,10 @@ export function getPlaceSuccess(activeBusiness) {
   };
 }
 
-export function getPlaceFailed() {
+export function getPlaceFailed(error) {
   return {
     type: GET_PLACE_FAILED,
+    payload: { error },
   };
 }
 

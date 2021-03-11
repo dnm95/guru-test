@@ -3,13 +3,13 @@ import { initializeApollo } from "lib/apolloClient";
 import { GET_PLACE } from "graphql/queries";
 
 export default async (req, res) => {
-  const { id } = req.query
+  const { id } = req.query;
   
   if (!id) {
     return res.status(404).json({
       status: 404,
       message: "Not Found",
-    })
+    });
   }
 
   const apolloClient = initializeApollo();
@@ -26,6 +26,6 @@ export default async (req, res) => {
       })
     }
   
-  res.statusCode = 200
-  return res.json({ ...data.business })
+  res.statusCode = 200;
+  return res.json({ ...data.business });
 }

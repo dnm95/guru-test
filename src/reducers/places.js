@@ -8,6 +8,7 @@ const initialState = {
   requesting: false,
   business: [],
   activeBusiness: {},
+  error: "",
 };
 
 const placesReducer = (state = initialState, { type, payload }) => {
@@ -16,6 +17,7 @@ const placesReducer = (state = initialState, { type, payload }) => {
     case GET_PLACE: {
       return {
         ...state,
+        error: "",
         requesting: true,
       };
     }
@@ -26,6 +28,7 @@ const placesReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         business,
+        error: "",
         requesting: false,
       };
     }
@@ -36,14 +39,18 @@ const placesReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         activeBusiness,
+        error: "",
         requesting: false,
       };
     }
 
     case GET_PLACES_FAILED:
     case GET_PLACE_FAILED: {
+      const { error } = payload;
+
       return {
-        ...initialState
+        ...initialState,
+        error
       };
     }
 

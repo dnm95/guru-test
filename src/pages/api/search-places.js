@@ -9,7 +9,7 @@ export default async (req, res) => {
     return res.status(404).json({
       status: 404,
       message: "Not Found",
-    })
+    });
   }
 
   const apolloClient = initializeApollo();
@@ -27,6 +27,6 @@ export default async (req, res) => {
       })
     }
   
-  res.statusCode = 200
-  return res.json({ ...data.search })
+  res.statusCode = 200;
+  return res.json({ ...data.search });
 }
