@@ -1,7 +1,7 @@
 import React from "react";
 import { arrayOf, shape } from "prop-types";
 import RatingStars from "react-star-ratings";
-import styles from "styles/Reviews.module.scss";
+import styles from "styles/modules/Reviews.module.scss";
 
 const Reviews = ({ reviews }) => (
   <div className={styles.reviewsContainer}>

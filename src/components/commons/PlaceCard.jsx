@@ -3,7 +3,7 @@ import React from "react";
 import { bool, func, oneOfType, shape } from "prop-types";
 import Link from "next/link";
 import isEmpty from "lodash/isEmpty";
-import styles from "styles/Card.module.scss";
+import styles from "styles/modules/Card.module.scss";
 import Rating from "./Rating";
 
 const PlaceCard = ({ item, visited, onClick }) => (

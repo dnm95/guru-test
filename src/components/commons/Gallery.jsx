@@ -1,12 +1,12 @@
 import React from "react";
 import { arrayOf, func, string } from "prop-types";
-import styles from "styles/Gallery.module.scss";
+import styles from "styles/modules/Gallery.module.scss";
 
 const Gallery = ({ photos, activePhoto, onSelectPhoto }) => (
   <div className="w-100">
     <img className="img-fluid shadow d-md-none" src={activePhoto} alt="gallery photos" />
     <div
-      className={styles.desktopImage}
+      className={`${styles.desktopImage} shadow d-none d-sm-block`}
       style={{ backgroundImage: `url(${activePhoto})` }}
     />
     <div className={styles.thumbnailContainer}>

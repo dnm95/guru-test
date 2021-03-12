@@ -25,7 +25,19 @@ function Place({ places, onSetPhoto }) {
         <Spinner styles={{ width: "90px", height: "90px" }} />
       ) : (
         <div className="container place-detail-container">
-          <div className="row mb-5">
+          <nav aria-label="breadcrumb">
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item">
+                <Link href="/">
+                  <a>Inicio</a>
+                </Link>
+              </li>
+              <li className="breadcrumb-item active" aria-current="page">
+                {activeBusiness.name || "Place Detail"}
+              </li>
+            </ol>
+          </nav>
+          <div className="row mb-4">
             <div className="col-sm-6 d-flex align-items-center">
               <Gallery photos={activeBusiness.photos} activePhoto={activeBusiness.photo} onSelectPhoto={onSetPhoto} />
             </div>
@@ -71,14 +83,14 @@ function Place({ places, onSetPhoto }) {
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col-sm-12">
-              {places.activeBusiness.reviews.length > 0 && (
+          {places.activeBusiness.reviews.length > 0 && (
+            <div className="row">
+              <div className="col-sm-12 mt-5">
                 <h2 className="mb-2">Reseñas</h2>
-              )}
-              <Reviews reviews={places.activeBusiness.reviews} />
+                <Reviews reviews={places.activeBusiness.reviews} />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
     </>
