@@ -27,14 +27,7 @@ function Place({ places, onSetPhoto }) {
         <div className="container place-detail-container">
           <Breadcrumb items={[{ name: "Inicio", href: "/" }, { name: activeBusiness.name || "Place Detail", href: ""}]} />
           <PlaceDetail business={activeBusiness} onSetPhoto={onSetPhoto} />
-          {places.activeBusiness.reviews.length > 0 && (
-            <div className="row">
-              <div className="col-sm-12 mt-5">
-                <h2 className="mb-2">Reseñas</h2>
-                <Reviews reviews={places.activeBusiness.reviews} />
-              </div>
-            </div>
-          )}
+          <Reviews reviews={places.activeBusiness.reviews} />
         </div>
       )}
     </>
