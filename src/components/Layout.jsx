@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import { func, node } from "prop-types";
 import { connect } from "react-redux";
 import { getVisitedPlaces } from "store/actions/user";
 import Header from "components/header";
-import Footer from "components/footer";
+
+const Footer = dynamic(() => import("components/footer"));
 
 function Layout(props) {
   const { children, onGetVisitedPlaces } = props;

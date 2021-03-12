@@ -1,4 +1,5 @@
 import React from "react";
+import dynamic from "next/dynamic";
 import { arrayOf, func, shape } from "prop-types";
 import HOC from "hoc";
 import { getPlaces } from "store/actions/places";
@@ -6,9 +7,10 @@ import { setVisitedPlace } from "store/actions/user"
 import selectors from "store/selectors/places";
 import userSelectors from "store/selectors/user";
 import SearchPlaces from "components/forms/SearchPlaces";
-import Card from "components/commons/PlaceCard";
-import Spinner from "components/commons/Spinner";
 import { isEmpty } from "lodash";
+
+const Spinner = dynamic(() => import("components/commons/Spinner"));
+const Card = dynamic(() => import("components/commons/PlaceCard"));
 
 function Home(props) {
   const { places, visitedPlaces, onSearchPlaces, onSetVisitedPlace } = props;
@@ -26,7 +28,7 @@ function Home(props) {
       {!places.business.length && !places.requesting && (
         <img
           src="https://cdn.pixabay.com/photo/2019/03/25/20/44/lubeck-4081316_1280.jpg"
-          className="img-fluid radius"
+          className="img-fluid shadow"
           alt="placeholder"
         />
       )}

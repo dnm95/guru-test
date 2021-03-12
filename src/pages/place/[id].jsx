@@ -1,17 +1,17 @@
 import React from "react";
 import Head from "next/head";
-import Link from "next/link";
+import dynamic from "next/dynamic";
 import { func, shape } from "prop-types";
 import HOC from "hoc";
 import isEmpty from "lodash/isEmpty";
 import { GET_PLACE } from "store/constants/places";
 import { setPhoto } from "store/actions/places";
 import selectors from "store/selectors/places";
-import Rating from "components/commons/Rating";
-import Reviews from "components/commons/Reviews";
-import Spinner from "components/commons/Spinner";
-import Schedules from "components/commons/Schedules";
-import Gallery from "components/commons/Gallery";
+import PlaceDetail from "components/commons/PlaceDetail";
+
+const Spinner = dynamic(() => import("components/commons/Spinner"));
+const Reviews = dynamic(() => import("components/commons/Reviews"));
+const Breadcrumb = dynamic(() => import("components/commons/Breadcrumb"));
 
 function Place({ places, onSetPhoto }) {
   const { activeBusiness, requesting } = places;
@@ -25,64 +25,8 @@ function Place({ places, onSetPhoto }) {
         <Spinner styles={{ width: "90px", height: "90px" }} />
       ) : (
         <div className="container place-detail-container">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <Link href="/">
-                  <a>Inicio</a>
-                </Link>
-              </li>
-              <li className="breadcrumb-item active" aria-current="page">
-                {activeBusiness.name || "Place Detail"}
-              </li>
-            </ol>
-          </nav>
-          <div className="row mb-4">
-            <div className="col-sm-6 d-flex align-items-center">
-              <Gallery photos={activeBusiness.photos} activePhoto={activeBusiness.photo} onSelectPhoto={onSetPhoto} />
-            </div>
-            <div className="col-sm-6 service-info">
-              <h1>{activeBusiness.name}</h1>
-              <Rating count={activeBusiness.review_count} rating={activeBusiness.rating} />
-              <p className="address">Dirección: {activeBusiness.location.formatted_address}</p>
-              <p>
-                Teléfono:
-                {" "}
-                {isEmpty(activeBusiness.phone) ? "no disponible" : (
-                  <a href={`tel:${activeBusiness.phone}`}>{activeBusiness.display_phone}</a>
-                )}
-              </p>
-              <p>Precios: {places.activeBusiness.price || "no disponibles"}</p>
-              {activeBusiness.categories.length > 0 && (
-                <p>
-                  Categorías:
-                  {" "}
-                  {activeBusiness.categories.map((cat, index) => `${cat.title}${index === activeBusiness.categories.length - 1 ? "." : ", "}`)}
-                </p>
-              )}
-              <p>Cerrado permanentemente: {activeBusiness.is_closed ? "si" : "no"}.</p>
-              {activeBusiness.hours[0] && (
-                <>
-                  <p>Abierto ahora: {activeBusiness.hours[0] && activeBusiness.hours[0].is_open_now ? "si" : "no"}.</p>
-                  <Schedules schedules={activeBusiness.hours[0].open || []} />
-                </>
-              )}
-              <div className="ctas">
-                <a href={activeBusiness.url} target="_blank" rel="noreferrer">
-                  <button className="btn primary" type="button">
-                    Visitar sitio web
-                  </button>
-                </a>
-                <Link href="/">
-                  <a>
-                    <button className="btn cancel ml-3" type="button">
-                      Regresar
-                    </button>
-                  </a>
-                </Link>
-              </div>
-            </div>
-          </div>
+          <Breadcrumb items={[{ name: "Inicio", href: "/" }, { name: activeBusiness.name || "Place Detail", href: ""}]} />
+          <PlaceDetail business={activeBusiness} onSetPhoto={onSetPhoto} />
           {places.activeBusiness.reviews.length > 0 && (
             <div className="row">
               <div className="col-sm-12 mt-5">
@@ -117,6 +61,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+/* Executing graphql request on the server */
 export default HOC(mapStateToProps, mapDispatchToProps)(Place, {
   type: GET_PLACE,
 });
